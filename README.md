@@ -35,6 +35,9 @@ alias l='ls -CF'
 
 # Coloured prompt
 export PS1="\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;2m\]@\h:\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;15m\]\w\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;2m\]\A\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;2m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+
+# Allow quick viewing of the slots
+export SLOTS=/sys/devices/platform/bone_capemgr/slots
 ```
 
 

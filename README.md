@@ -12,7 +12,7 @@ apt-get update
 apt-get dist-upgrade -y
 
 # For node development
-apt-get install npm nodejs nodejs-legacy build-essential
+apt-get install npm nodejs nodejs-legacy build-essential device-tree-compiler
 
 # Other tools
 apt-get install git mc i2c-tools minicom ppp python 
@@ -21,6 +21,10 @@ apt-get install git mc i2c-tools minicom ppp python
 cd /usr/bin
 ln -s vim.tiny vim
 ```
+
+To load DTOs you will need to follow these instructions:
+https://github.com/beagleboard/bb.org-overlays
+
 
 ## Make the console fancier
 

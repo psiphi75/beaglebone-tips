@@ -22,6 +22,22 @@ cd /usr/bin
 ln -s vim.tiny vim
 ```
 
+## Make the console fancier
+
+Add the following to ~/.bashrc:
+
+```bash
+# ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Coloured prompt
+export PS1="\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;2m\]@\h:\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;15m\]\w\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;2m\]\A\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;2m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+```
+
+
 ## Potential Issues you may encounter
 
 ### The ssh login process takes a while

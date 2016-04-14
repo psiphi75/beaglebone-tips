@@ -32,7 +32,11 @@ The install the version we want:
 apt-get install nodejs=0.10.42~dfsg-0rcnee2~bpo80+20160217+1  nodejs-legacy
 ```
 
-
+Finish up with:
+```bash
+apt-get autoremove
+apt-get clean
+```
 
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays

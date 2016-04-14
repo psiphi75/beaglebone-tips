@@ -3,7 +3,7 @@ Tips for the BeagleBone Green/Black.
 
 ## Reduce the size of the image
 
-First start with the smallest image.  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29).  Although this is really bare-bones.  This is just under 400MB in size.
+First start with the smallest image.  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) image.  Although this is really bare-bones.  This is just under 400MB in size.
 
 Then I install the following components (this will use around 250 MB):
 
@@ -12,7 +12,7 @@ apt-get update
 apt-get dist-upgrade -y
 
 # For node development
-apt-get install npm nodejs nodejs-legacy build-essential device-tree-compiler
+apt-get install build-essential device-tree-compiler
 
 # Other tools
 apt-get install git mc i2c-tools minicom ppp python 
@@ -21,6 +21,18 @@ apt-get install git mc i2c-tools minicom ppp python
 cd /usr/bin
 ln -s vim.tiny vim
 ```
+
+We need to figure out which version of nodejs to use:
+```bash
+apt-cache madison nodejs
+```
+
+The install the version we want:
+```bash
+apt-get install nodejs=0.10.42~dfsg-0rcnee2~bpo80+20160217+1
+```
+
+
 
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays

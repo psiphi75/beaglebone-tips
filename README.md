@@ -38,6 +38,8 @@ apt-get autoremove
 apt-get clean
 ```
 
+The end result is a total installed size of 520 MB.
+
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays
 

@@ -1,9 +1,9 @@
 # beaglebone-tips
 Tips for the BeagleBone Green/Black.
 
-## Reduce the size of the image
+## Start with a minimal image
 
-First start with the smallest image.  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) image.  Although this is really bare-bones.  This is just under 400MB in size.
+I start with the smallest image, then install what is required.  Typically I don't use Cloud9 IDE and I have never used X11 (the GUI).  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) image.  Although this is really bare-bones.  This is just under 400MB in size.
 
 Then I install the following components (this will use around 250 MB):
 

@@ -29,7 +29,7 @@ apt-cache madison nodejs
 
 The install the version we want:
 ```bash
-apt-get install nodejs=0.10.42*  nodejs-legacy
+apt-get install nodejs=0.10.42*  nodejs-legacy npm
 ```
 
 Finish up with:
@@ -38,7 +38,7 @@ apt-get autoremove
 apt-get clean
 ```
 
-The end result is a total installed size of 520 MB.
+The end result is a total installed size of 534 MB.
 
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays

@@ -29,7 +29,7 @@ apt-cache madison nodejs
 
 The install the version we want:
 ```bash
-apt-get install nodejs=0.10.42~dfsg-0rcnee2~bpo80+20160217+1  nodejs-legacy
+apt-get install nodejs=0.10.42*  nodejs-legacy
 ```
 
 Finish up with:

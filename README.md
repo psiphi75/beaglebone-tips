@@ -1,4 +1,4 @@
-# beaglebone-tips
+# Beaglebone Tips
 Tips for the BeagleBone Green/Black.
 
 ## Start with a minimal image

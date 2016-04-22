@@ -3,7 +3,11 @@ Tips for the BeagleBone Green/Black.
 
 ## Start with a minimal image
 
+### Step 1: Get the image
+
 I start with the smallest image, then install what is required.  Typically I don't use Cloud9 IDE and I have never used X11 (the GUI).  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) image.  Although this is really bare-bones.  This is just under 400MB in size.
+
+### Step 2: Install the applications you require
 
 Then I install the following components (this will use around 250 MB):
 
@@ -40,8 +44,12 @@ apt-get clean
 
 The end result is a total installed size of 534 MB.
 
+### Get and install the firmware
+
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays
+
+Once the firmware is installed, in theory you could uninstall many of the above components.
 
 
 ## Make the console fancier

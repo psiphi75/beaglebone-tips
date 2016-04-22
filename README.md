@@ -44,7 +44,7 @@ apt-get clean
 
 The end result is a total installed size of 534 MB.
 
-### Get and install the firmware
+### Step 3: Get and install the firmware
 
 To load DTOs you will need to follow these instructions:
 https://github.com/beagleboard/bb.org-overlays

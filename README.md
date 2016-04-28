@@ -87,3 +87,13 @@ You need to run to restart the sshd service:
 ```
 service sshd restart
 ```
+
+### Port Scan to find the BeagleBone on the network
+
+**Linux only** 
+
+When you have the ethernet cable plugged into the BeagleBone and you want to know what the IP address is, you can port scan it:
+
+```sh
+nmap -T4 -F 192.168.2.100-255
+```

@@ -160,3 +160,31 @@ Where `"your-wlan-id"` is the name of your wireless LAN and `"password"` is the 
 
 Instead of these last two steps you could use `connmanctl` [see here](https://wiki.archlinux.org/index.php/Connman).
 
+**Instead of `/etc/network/interfaces` you can use `connman` to configure wifi**:
+
+```sh
+apt-get install connman
+connmanctl
+```
+
+Then in `connmanctl` type the following commands:
+
+```sh
+scan wifi
+agent on
+services     # This will give you the list of avaiable services and their keys
+```
+
+The list of services will look something like:
+*AO Wired                ethernet_68c90bed2fcc_cable
+    Rigi97               wifi_e03f498f501f_526967693937_managed_psk
+    Singer-AP            wifi_e03f498f501f_53696e6765722d4150_managed_psk
+
+Then we connect to a wifi, still in `connmanctl` type:
+
+```
+connect wifi_e03f498f501f_526967693937_managed_psk
+```
+
+You will be asked to enter the passphrase.
+

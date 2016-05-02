@@ -97,3 +97,66 @@ When you have the ethernet cable plugged into the BeagleBone and you want to kno
 ```sh
 nmap -T4 -F 192.168.2.100-255
 ```
+
+
+### Enable Wifi (specifically rtl8192cu)
+
+Sources:
+ - http://www.erdahl.io/2016/04/configuring-wifi-on-beagleboardorg.html
+ - https://learn.adafruit.com/setting-up-wifi-with-beaglebone-black/configuration
+ - https://packages.debian.org/jessie/kernel/firmware-realtek
+
+For my rtl8192cu I get the following message (on kernel 4.1.x):
+
+```text
+[    3.235589] usbcore: registered new interface driver rtl8150
+[    7.498277] rtl8192cu: Chip version 0x10
+[    7.769925] rtl8192cu: MAC address: e0:3f:49:8f:50:1f
+[    7.769952] rtl8192cu: Board Type 0
+[    7.771832] rtl_usb: rx_max_size 15360, rx_urb_num 8, in_ep 1
+[    7.771982] rtl8192cu: Loading firmware rtlwifi/rtl8192cufw_TMSC.bin
+[    7.778692] usb 1-1: Direct firmware load for rtlwifi/rtl8192cufw_TMSC.bin failed with error -2
+[    7.778759] usb 1-1: Direct firmware load for rtlwifi/rtl8192cufw.bin failed with error -2
+[    7.778772] rtlwifi: Loading alternative firmware rtlwifi/rtl8192cufw.bin
+[    7.778779] rtlwifi: Firmware rtlwifi/rtl8192cufw_TMSC.bin not available
+[    7.823951] ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[    7.825363] usbcore: registered new interface driver rtl8192cu
+```
+
+The Debian `firmware-realtek` package will fix this issue:
+```sh
+apt-get install firmware-realtek
+```
+
+Then you should get the following result on boot:
+```text
+[    3.235541] usbcore: registered new interface driver rtl8150
+[    7.507096] rtl8192cu: Chip version 0x10
+[    7.766588] rtl8192cu: MAC address: e0:3f:49:8f:50:1f
+[    7.766616] rtl8192cu: Board Type 0
+[    7.767681] rtl_usb: rx_max_size 15360, rx_urb_num 8, in_ep 1
+[    7.767828] rtl8192cu: Loading firmware rtlwifi/rtl8192cufw_TMSC.bin
+[    7.804861] ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[    7.806270] usbcore: registered new interface driver rtl8192cu
+[   18.603677] rtl8192cu: MAC auto ON okay!
+[   18.676509] rtl8192cu: Tx queue select: 0x05
+```
+
+Edit `/etc/network/interfaces` and add the following lines:
+
+```text
+# WiFi Example
+auto wlan0
+iface wlan0 inet dhcp
+    wpa-ssid "your-wlan-id"
+    wpa-psk  "mypassword"
+```
+Then type:
+```sh
+ifup wlan0
+```
+
+Where `"your-wlan-id"` is the name of your wireless LAN and `"password"` is the password.  
+
+Instead of these last two steps you could use `connmanctl` [see here](https://wiki.archlinux.org/index.php/Connman).
+

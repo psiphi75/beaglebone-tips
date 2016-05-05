@@ -88,6 +88,11 @@ You need to run to restart the sshd service:
 service sshd restart
 ```
 
+### The ethernet over USB does not work
+
+I run Debian Linux on my Desktop/Laptop and like to ssh to the BeagleBone via USB.  By default it worked out of the box.  But then it stopped.  Running `mkudevrule.sh` found on the [BeagleBone start page](http://beagleboard.org/getting-started) fixed the problem.
+
+
 ### Port Scan to find the BeagleBone on the network
 
 **Linux only**

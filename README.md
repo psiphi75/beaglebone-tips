@@ -19,7 +19,7 @@ apt-get dist-upgrade -y
 apt-get install build-essential device-tree-compiler
 
 # Other tools
-apt-get install git mc i2c-tools minicom ppp python 
+apt-get install git mc i2c-tools minicom ppp python
 
 # I only use vim.tiny
 cd /usr/bin
@@ -90,7 +90,7 @@ service sshd restart
 
 ### Port Scan to find the BeagleBone on the network
 
-**Linux only** 
+**Linux only**
 
 When you have the ethernet cable plugged into the BeagleBone and you want to know what the IP address is, you can port scan it:
 
@@ -108,7 +108,7 @@ Sources:
 
 For my rtl8192cu I get the following message (on kernel 4.1.x):
 
-```text
+```Text
 [    3.235589] usbcore: registered new interface driver rtl8150
 [    7.498277] rtl8192cu: Chip version 0x10
 [    7.769925] rtl8192cu: MAC address: e0:3f:49:8f:50:1f
@@ -170,15 +170,18 @@ connmanctl
 Then in `connmanctl` type the following commands:
 
 ```sh
+enable wifi
 scan wifi
 agent on
 services     # This will give you the list of avaiable services and their keys
 ```
 
 The list of services will look something like:
+```Text
 *AO Wired                ethernet_68c90bed2fcc_cable
     Rigi97               wifi_e03f498f501f_526967693937_managed_psk
     Singer-AP            wifi_e03f498f501f_53696e6765722d4150_managed_psk
+```
 
 Then we connect to a wifi, still in `connmanctl` type:
 
@@ -187,4 +190,3 @@ connect wifi_e03f498f501f_526967693937_managed_psk
 ```
 
 You will be asked to enter the passphrase.
-

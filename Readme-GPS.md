@@ -9,7 +9,7 @@ This GPS device has the following **default settings:**
  - UART baud rate of 9600
  - GPS update rate of 1 Hz
  - The following NMEA sentences are output:
- 
+
       - NMEA_SEN_RMC, // GPRMC interval - Recomended Minimum Specific GNSS Sentence
       - NMEA_SEN_GGA, // GPGGA interval - GPS Fix Data
       - NMEA_SEN_GSA, // GPGSA interval - GNSS DOPS and Active Satellites
@@ -19,7 +19,7 @@ Below are the settings **I want:**
  - UART baud rate of **115200**
  - GPS update rate of **5 Hz**
  - The following NMEA sentences are output:
- 
+
       - NMEA_SEN_RMC, // **GPRMC** interval - Recomended Minimum Specific GNSS Sentence
       - NMEA_SEN_ZDA, // **GPZDA** interval – Time & Date
 
@@ -41,7 +41,7 @@ Note `Ctrl-A,Z,x` will exit `minicom`.
 
 ## PMTK
 
-PMTK is language with which you can send commands to the your GPS device, also over the same serial port.  You can send  a command like `$PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,1,0*2D<CR><LF>` 
+PMTK is language with which you can send commands to the your GPS device, also over the same serial port.  You can send  a command like `$PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,1,0*2D<CR><LF>`
 where:
  -  `$PMTK`: is the start of the string,
  -  `314`: is the PMTK command ID, this particular command is the PMTK_API_SET_NMEA_OUTPUT, which sets how frequently to display the NMEA commands;
@@ -51,7 +51,7 @@ where:
 
 And you should get an acknowledgement like `$PMTK001,314,3*36`.
 
-## Using Node.js to make a very simple 
+## Using Node.js to make a very simple
 
 Create the `pmtk_output.js` file.
 
@@ -103,7 +103,7 @@ node pmtk_output.js "PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,1,0" > /dev/ttyO1
 
 ## Change the baud rate of the GPS
 
-The `251` (`PMTK_SET_NMEA_BAUDRATE`) command can be used to change the baud rate.  We want to change this to 115200 baud.
+The `251` (PMTK_SET_NMEA_BAUDRATE) command can be used to change the baud rate.  We want to change this to 115200 baud.
 
 ```sh
 node pmtk_output.js "PMTK251,115200" > /dev/ttyO1
@@ -111,14 +111,57 @@ node pmtk_output.js "PMTK251,115200" > /dev/ttyO1
 
 You should notice that it is much quicker now.  You will have to restart your serial port monitoring software.
 
-node output.js "PMTK869,1,0" > /dev/ttyO1
-node output.js "PMTK869,1,1" > /dev/ttyO1
-node output.js "PMTK251,115200" > /dev/ttyO1
-node output.js "PMTK000" > /dev/ttyO1
-node output.js "PMTK220,200" > /dev/ttyO1
-node output.js "PMTK220,100" > /dev/ttyO1
-node output.js "PMTK220,1000" > /dev/ttyO1
-node output.js "PMTK251,9600" > /dev/ttyO1
-node output.js "PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,1,0" > /dev/ttyO1
 
+## Reduce the cruft that gets sent
 
+I am only interested in getting the following information:
+ - position (lat, long, alt)
+ - velocity and direction of travel
+
+The `GGA` and `RMC` NMEA sentences provide this information.  The PMTK `314` (PMTK_API_SET_NMEA_OUTPUT) command allows you to set the NMEA output.  For the SIM28 GPS module this means I disable (set value to `0`) the other NMEA output and set the others to once every cycle.  This means once a second if you have the NMEA output rate at 1 Hz.
+
+Documentation states that `RMC` is the 2nd option and `GGA` is the 4th.
+
+```sh
+node pmtk_output.js "PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" > /dev/ttyO1
+```
+
+The response should be something like `$PMTK001,314,3*36`.
+
+To reset this option to default, use the following command:
+
+```sh
+node pmtk_output.js "PMTK314,-1" > /dev/ttyO1
+```
+
+## Update the rate of NMEA sentences
+
+I would like to have NMEA sentences spat out at 10 Hz (10 times per second). This is simple to do, but the documentation is not clear.  So, this is where my knowledge gets fuzzy, because the documentation is not clear.
+
+The [SIM28 Hardware Design document](http://www.sabreadv.com/wp-content/uploads/SIM28_Hardware-Design_V1.06.pdf) explains
+that EASY Mode (Embedded Assist System) works only at 1 Hz, it implies it conflicts with higher frequencies.  So we
+turn off EASY Mode, but this is not documented how to do this.  But it is documented
+[here](https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf), under PMTK command `869` (PMTK_CMD_EASY_ENABLE).  
+
+**Disable EASY Mode:**
+```sh
+node pmtk_output.js "PMTK869,1,0" > /dev/ttyO1
+```
+
+Once we have done that we can use PMTK command `220` (PMTK_SET_POS_FIX) to set the NMEA update rate.  The value is in
+ms.  The documenation states it must be 200 ms or greater, but it seems to work at 100 ms.  The
+[specs](http://www.simcom.eu/media/files/SIM28%20Specification_V1208.pdf) also state that it should work at 10 Hz (100
+ms frequency).
+
+**Set to 10 Hz update rate:**
+```sh
+node pmtk_output.js "PMTK220,100" > /dev/ttyO1
+```
+
+You should see the update increase significantly.
+
+Reset to default:
+
+```sh
+node pmtk_output.js "PMTK220,1000" > /dev/ttyO1
+```

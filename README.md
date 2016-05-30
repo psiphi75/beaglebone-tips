@@ -92,6 +92,8 @@ service sshd restart
 
 I run Debian Linux on my Desktop/Laptop and like to ssh to the BeagleBone via USB.  By default it worked out of the box.  But then it stopped.  Running `mkudevrule.sh` found on the [BeagleBone start page](http://beagleboard.org/getting-started) fixed the problem.
 
+One issue I had is that when I plug the BeagleBone into a USB 3.0 port it has issues with creating network.  But the USB 2.0 ports work.
+
 
 ### Port Scan to find the BeagleBone on the network
 

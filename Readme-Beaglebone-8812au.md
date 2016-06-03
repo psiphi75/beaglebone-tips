@@ -21,4 +21,4 @@ make
 make install
 ```
 
-Then use [`connmanctl`](https://github.com/psiphi75/beaglebone-tips#Use-connmanctl-to-enable-wifi) to enable Wifi.
+Then use [`connmanctl`](https://github.com/psiphi75/beaglebone-tips#use-connmanctl-to-enable-wifi) to enable Wifi.

@@ -169,6 +169,8 @@ Instead of these last two steps you could use `connmanctl` [see here](https://wi
 
 **Instead of `/etc/network/interfaces` you can use `connman` to configure wifi**:
 
+## Use connmanctl to enable wifi
+
 ```sh
 apt-get install connman
 connmanctl

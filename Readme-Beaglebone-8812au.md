@@ -11,10 +11,14 @@ cd rtl8812AU_8821AU_linux
 ```
 
 Edit `Makefile` and turn on pi and off x86
+
 Turn off `CONFIG_PLATFORM_I386_PC = n`
+
 Turn on `CONFIG_PLATFORM_ARM_RPI = y`
 
 ```sh
 make
 make install
 ```
+
+Then use [`connmanctl`](https://github.com/psiphi75/beaglebone-tips#Use-connmanctl-to-enable-wifi) to enable Wifi.

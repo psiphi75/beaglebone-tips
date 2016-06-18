@@ -28,7 +28,7 @@ Turn on `CONFIG_PLATFORM_ARM_RPI = y`
 make
 make install
 
-modprobe rtlwifi
+modprobe -a 8812au
 ```
 
 

@@ -27,6 +27,10 @@ Turn on `CONFIG_PLATFORM_ARM_RPI = y`
 ```sh
 make
 make install
+
+modprobe rtlwifi
 ```
+
+
 
 Then use [`connmanctl`](https://github.com/psiphi75/beaglebone-tips#use-connmanctl-to-enable-wifi) to enable Wifi.

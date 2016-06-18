@@ -132,7 +132,7 @@ For my rtl8192cu I get the following message (on kernel 4.1.x):
 
 The Debian `firmware-realtek` package will fix this issue:
 ```sh
-apt-get install firmware-realtek
+apt-get install firmware-realtek wireless-tools
 ```
 
 Then you should get the following result on boot:

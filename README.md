@@ -216,5 +216,4 @@ fstrim -v /
 Add the following lines to `/etc/rc.local`
 ```sh
 echo noop > /sys/block/mmcblk0/queue/scheduler
-echo noop > /sys/block/mmcblk1/queue/scheduler
 ```

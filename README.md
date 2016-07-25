@@ -199,3 +199,22 @@ connect wifi_e03f498f501f_526967693937_managed_psk
 ```
 
 You will be asked to enter the passphrase.
+
+### I/O (Flash Drive) Performance enhancements for the BeagleBone
+
+[This link has some useful tips](http://jmahler.github.io/linux/2014/02/25/BBB-flash.html), these are summarised below.
+
+#### Periodic TRIM Using cron
+
+Add the following job to a daily cron job:
+```sh
+fstrim -v /
+```
+
+#### I/O Scheduler
+
+Add the following lines to `/etc/rc.local`
+```sh
+echo noop > /sys/block/mmcblk0/queue/scheduler
+echo noop > /sys/block/mmcblk1/queue/scheduler
+```

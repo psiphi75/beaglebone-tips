@@ -165,3 +165,33 @@ Reset to default:
 ```sh
 node pmtk_output.js "PMTK220,1000" > /dev/ttyO1
 ```
+
+### u-blox NEO-6M
+
+I have installed the u-blox NEO-6M, I have found this (much more reliable)[http://stackoverflow.com/questions/38864087/while-moving-gps-lat-long-values-intermittantly-dont-change] than the SIM28 GPS module I was using before.
+
+In a nutshell, to get u-blox NEO-6M configured (using Linux, not Windows) without a USB to serial port converter, we take the followings steps:
+1) Install CrossOver and u-center on your Linux box.
+2) Install socat and run it on the BeagleBone.
+3) Connect to the GPS via the BeagleBone via socat using u-center.
+
+
+**1) Installing u-center on Linux:** However, the u-blox NEO-6M comes with it's own configuration software (u-center) in Windows.  I don't want to reboot into Windows, so I used [CrossOver for Linux](https://www.codeweavers.com/products/crossover-linux) (I tried Wine but it did not work) to run u-center.  
+
+**2) Install `socat`:** this is a magic tool that pipes the serial data over the network:
+
+```
+apt-get install socat
+```
+
+Note: (These instructions)[https://kurtraschke.com/2014/11/rpi-gps] are very helpful.
+
+Run `socat` using the following command:
+
+```
+socat tcp-l:2000,reuseaddr,fork file:/dev/ttyO4,nonblock,waitlock=/var/run/ttyO4.lock,b9600,iexten=0,raw
+```
+
+This opens port 2000 and creates a two-way pipe for `/dev/tty04` (my u-blox GPS).  u-center will be able to connect to this.
+
+**3) Connect using u-center**: In the *Reciever -> Network connection -> New* menu enter the following details: `tcp://192.168.43.18:2000` and ta da, just like magic the GPS values will start streaming through.

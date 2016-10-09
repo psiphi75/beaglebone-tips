@@ -217,3 +217,70 @@ Add the following lines to `/etc/rc.local`
 ```sh
 echo noop > /sys/block/mmcblk0/queue/scheduler
 ```
+
+
+# Getting I2C working
+
+This is to determine which i2c bus the [3D click](http://www.mikroe.com/click/3d-motion/) is on.
+
+Run:
+```sh
+i2cdetect -y -r 2
+```
+
+note `i2cdetect -y -r 1` or `i2cdetect -y -r 0` also works.  But for me bus 2
+worked.  I received an output that implied a few devices are connected.  I got
+the following result:
+
+```text
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: 40 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: 50 51 52 53 UU UU UU UU -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+```
+
+To determine which was the 3D click I rebooted and found that if I removed the
+3D click the `40` value would disapper:
+
+```text
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: 50 51 52 53 UU UU UU UU -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+```
+
+This means that the 3D Motion Click is on Bus 2 with an address of `0x40`. To get it going with JavaScript (bonescript).
+
+```JavaScript
+var b = require('octalbonescript');
+var address = 0x040
+b.i2c.open('/dev/i2c-2', address, function(data){
+    console.log(data);
+}, function(error, wire){
+    if(error){
+        console.error(error.message);
+        return;
+    }
+});
+```
+
+Or you can use i2c (you need to install this npm module):
+
+```JavaScript
+var i2c = require('i2c');
+var address = 0x40;
+var wire = new i2c(address, {device: '/dev/i2c-2'});
+wire.scan(function(err, data) {
+    console.log(err, data);
+});
+```

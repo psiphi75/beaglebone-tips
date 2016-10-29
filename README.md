@@ -100,6 +100,21 @@ I run Debian Linux on my Desktop/Laptop and like to ssh to the BeagleBone via US
 
 One issue I had is that when I plug the BeagleBone into a USB 3.0 port it has issues with creating network.  But the USB 2.0 ports work.
 
+#### Still not working
+
+Another technique is to run the following command as root (on the desktop PC): 
+
+    ifconfig usb0 192.168.7.1
+
+Where `usb0` is the interface name of your BeagleBone device.  In my case it's `enx68c90bed2fce`.
+
+If you are running Ubuntu GNOME then you in the Network settings you need to set the following for *USB Ethernet* under `IPv4`:
+
+    Addresses: manual
+    Address: 192.168.7.1
+    Netmask: 255.255.255.0
+    Gateway: 0.0.0.0
+
 
 ### Port Scan to find the BeagleBone on the network
 

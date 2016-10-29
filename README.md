@@ -7,6 +7,12 @@ Tips for the BeagleBone Green/Black.
 
 I start with the smallest image, then install what is required.  Typically I don't use Cloud9 IDE and I have never used X11 (the GUI).  I use the [microSD/Standalone: (console) (BeagleBone/BeagleBone Black/BeagleBone Green)](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28console.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) image.  Although this is really bare-bones.  This is just under 400MB in size.
 
+To write the image to the SD card (using a Linux desktop) use the following command:
+
+    xzcat bone-debian-8.5-console-armhf-2016-06-05-2gb.img.xz  | dd of=/dev/mmcblk0
+
+Note that the you should write to the drive (e.g. `/dev/mmcblk0`) not the partition (e.g. `/dev/mmcblk0p1`).
+
 ### Step 2: Install the applications you require
 
 Then I install the following components (this will use around 250 MB):

@@ -9,8 +9,8 @@ I measured the before (node 0.12.x) and after (node 4.6.1)
 | Measure                        | v0.12.x | v4.6.1 | 
 | --- | ---: | ---: |
 | Node Process CPU usage  | 32.5 % | 29.4 % |
-| Node Process Memory usage | 17.6 % | 7.9% |
-| `forever list` complete time     | 10.78 sec| 18.6 |
+| Node Process Memory usage | 17.6 % | 7.9 % |
+| `forever list` complete time     | 10.78 sec| 17.6 sec |
 
 The node process I used was a process that does a mix of things, lots of mathematical calculation and some file IO.  Note that `forever list` was using a different version on the second run, which may explain why it did so poorly.
 

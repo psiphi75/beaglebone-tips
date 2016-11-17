@@ -25,7 +25,7 @@ apt-get dist-upgrade -y
 apt-get install build-essential device-tree-compiler
 
 # Other tools
-apt-get install git mc i2c-tools minicom ppp python psmisc
+apt-get install git mc i2c-tools minicom ppp python psmisc cpufrequtils
 
 # I only use vim.tiny
 cd /usr/bin

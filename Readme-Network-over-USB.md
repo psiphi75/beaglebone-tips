@@ -16,7 +16,7 @@ sudo su
 DESKTOP_NIC="wlo1"  
 
 # Find the NIC of your BeagleBone
-BB_NIC=$(ifconfig | grep -B1 ${BB_IP} | grep -o "^\w*")
+BB_NIC=$(ifconfig | grep -B1 ${BB_IP} | grep -o "^\w*" | head -1 )
 
 ifconfig ${BB_NIC} ${BB_IP}
 iptables --table nat --append POSTROUTING --out-interface ${DESKTOP_NIC} -j MASQUERADE

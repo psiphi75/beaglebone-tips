@@ -11,12 +11,16 @@ These instructions are [based on these](https://elementztechblog.wordpress.com/2
 sudo su
 
 # These values are for my host, your values may be different.  Use `ifconfig` to figure them out.
-WLAN="wlo1"
-USB="enx88c2556ba65f"
 
-ifconfig ${USB} 192.168.7.1
-iptables --table nat --append POSTROUTING --out-interface ${WLAN} -j MASQUERADE
-iptables --append FORWARD --in-interface ${USB} -j ACCEPT
+# The NIC of your desktop
+DESKTOP_NIC="wlo1"  
+
+# Find the NIC of your BeagleBone
+BB_NIC=$(ifconfig | grep -B1 ${BB_IP} | grep -o "^\w*")
+
+ifconfig ${BB_NIC} ${BB_IP}
+iptables --table nat --append POSTROUTING --out-interface ${DESKTOP_NIC} -j MASQUERADE
+iptables --append FORWARD --in-interface ${BB_NIC}  -j ACCEPT
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
@@ -27,5 +31,5 @@ ifconfig usb0 192.168.7.2
 route add default gw 192.168.7.1
 
 # This last step is only required if you can't connect with the above two instructions
-echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+echo "nameserver 1.1.1.1" >> /etc/resolv.conf
 ```

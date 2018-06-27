@@ -16,6 +16,7 @@ sudo su
 DESKTOP_NIC="wlo1"  
 
 # Find the NIC of your BeagleBone
+BB_IP="192.168.7.1"
 BB_NIC=$(ifconfig | grep -B1 ${BB_IP} | grep -o "^\w*" | head -1 )
 
 ifconfig ${BB_NIC} ${BB_IP}

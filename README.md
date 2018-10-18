@@ -242,7 +242,7 @@ echo noop > /sys/block/mmcblk0/queue/scheduler
 
 # Getting I2C working
 
-This is to determine which i2c bus the [3D click](http://www.mikroe.com/click/3d-motion/) is on.
+This is to determine which i2c bus the [3D click](http://www.mikroe.com/click/3d-motion/) is on.  This requires the `i2c-tools` package, use `sudo apt install i2c-tools` to install it.
 
 Run:
 ```sh

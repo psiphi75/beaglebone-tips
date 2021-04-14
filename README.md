@@ -305,3 +305,16 @@ wire.scan(function(err, data) {
     console.log(err, data);
 });
 ```
+
+## Beaglebone Green - UART
+
+The BeagleBone Green from SeeedStudio has a grove connector.  This is UART2.  To get this going you need to edit `/boot/uEnv.txt` and add the following line:
+```
+uboot_overlay_addr6=/lib/firmware/BB-UART2-00A0.dtbo
+```
+Reboot and then install `minicom` and run 
+```
+minicom --baudrate 115200 --device /dev/ttyO2
+```
+A quick way to see if it works is to short the RX and TX lines and minicom will echo the characters you type into the terminal.  The other UARTs will use the same procedure.
+
